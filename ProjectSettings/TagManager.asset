@@ -9,6 +9,13 @@ TagManager:
   - VolleyballStage
   - Platform
   - Water
+  - Ground
+  - Ball
+  - SecondPlayer
+  - SecondCamera
+  - Net
+  - SideA
+  - SideB
   layers:
   - Default
   - TransparentFX
