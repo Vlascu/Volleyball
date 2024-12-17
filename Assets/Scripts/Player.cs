@@ -1,7 +1,12 @@
+using Assets.Scripts;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private List<IPlayerObserver> observers = new List<IPlayerObserver>();
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float serveForce;
@@ -20,6 +25,8 @@ public class Player : MonoBehaviour
     [SerializeField] private KeyCode rightKey;
     [SerializeField] private KeyCode jumpKey;
     [SerializeField] private KeyCode serveKey;
+
+    public Vector3 BallPos { get; set; }
 
     private void Start()
     {
@@ -57,19 +64,18 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(serveKey) && ballContact)
         {
+            NotifyNeedBallPosition(this);
+
             lastServingPlayer = this.gameObject.tag;
 
-            GameObject ball = GameObject.FindGameObjectWithTag("Ball");
-            Rigidbody ballRb = ball.GetComponent<Rigidbody>();
+            NotifyBallShooter(lastServingPlayer);
 
             GameObject secondPlayer = lastServingPlayer == "Player" ? GameObject.FindGameObjectWithTag("SecondPlayer") : GameObject.FindGameObjectWithTag("Player");
             float direction = lastServingPlayer == "Player" ? 1f : -1f;
 
-            //TODO: random forces and direction
-
             if (secondPlayer != null)
             {
-                Vector3 serveDirection = (secondPlayer.transform.position - ball.transform.position).normalized;
+                Vector3 serveDirection = (secondPlayer.transform.position - BallPos).normalized;
                 serveDirection.y = 0;
 
                 serveDirection = serveDirection.normalized;
@@ -81,6 +87,14 @@ public class Player : MonoBehaviour
 
                 serveDirection += Vector3.forward * forwardForce * direction;
 
+                float randomLateralOffset = Random.Range(-0.4f, 0.4f);
+                float randomHeightOffset = Random.Range(-0.1f, 0.1f);
+                float randomForwardOffset = Random.Range(-0.1f, 0.1f);
+
+                serveDirection.x += randomLateralOffset;
+                serveDirection.y += randomHeightOffset;
+                serveDirection.z += randomForwardOffset;
+
                 float appliedForce = serveForce;
 
                 if (isMidAirServe)
@@ -91,8 +105,7 @@ public class Player : MonoBehaviour
                     isMidAirServe = false;
                 }
 
-                ballRb.AddForce(serveDirection * appliedForce, ForceMode.Impulse);
-
+                NotifyServe(serveDirection * appliedForce, ForceMode.Impulse);
             }
         }
     }
@@ -105,6 +118,8 @@ public class Player : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Ball"))
         {
+            NotifyBallCollision();
+
             ballContact = true;
         }
     }
@@ -113,6 +128,54 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             ballContact = false;
+        }
+    }
+
+    public void AddObserver(IPlayerObserver observer)
+    {
+        if (!observers.Contains(observer))
+        {
+            observers.Add(observer);
+        }
+    }
+
+    public void RemoveObserver(IPlayerObserver observer)
+    {
+        if (observers.Contains(observer))
+        {
+            observers.Remove(observer);
+        }
+    }
+
+    private void NotifyNeedBallPosition(Player player)
+    {
+        foreach (var observer in observers)
+        {
+            observer.OnBallPosition(player);
+        }
+    }
+
+    private void NotifyBallShooter(string player)
+    {
+        foreach (var observer in observers)
+        {
+            observer.OnBallShooter(player);
+        }
+    }
+
+    private void NotifyServe(Vector3 direction, ForceMode mode)
+    {
+        foreach (var observer in observers)
+        {
+            observer.OnServe(direction, mode);
+        }
+    }
+
+    private void NotifyBallCollision()
+    {
+        foreach (var observer in observers)
+        {
+            observer.OnBallCollision();
         }
     }
 }

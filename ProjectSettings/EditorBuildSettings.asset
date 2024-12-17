@@ -5,9 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/WinnerScene.unity
+    guid: 42662496c4c8c4a40960a683db8573ef
+  - enabled: 1
+    path: Assets/Scenes/VolleyballScene2.unity
+    guid: 7bd3ddc3669d5a84caf477b19c8f57a6
+  - enabled: 1
+    path: Assets/Scenes/VolleyballScene1.unity
+    guid: 152f990cfcf85054e9b1cbb6c96eb8bb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
