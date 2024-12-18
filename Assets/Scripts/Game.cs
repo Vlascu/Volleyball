@@ -25,6 +25,9 @@ namespace Assets.Scripts
         [SerializeField] private Player player1;
         [SerializeField] private Player player2;
 
+        [SerializeField] private AudioSource ballHitSound;
+        [SerializeField] private AudioSource cheeringSound;
+
         private Vector3 initialPlayer1Pos;
         private Vector3 initialPlayer2Pos;
 
@@ -88,6 +91,8 @@ namespace Assets.Scripts
 
         public void OnSideTouched(string side)
         {
+            cheeringSound.Play();
+
             if (side == "SideA")
             {
                 playerTwoScore++;
@@ -168,6 +173,8 @@ namespace Assets.Scripts
 
         public void OnServe(Vector3 direction, ForceMode mode)
         {
+            ballHitSound.Play();
+
             ballRb.AddForce(direction, mode);
         }
 
