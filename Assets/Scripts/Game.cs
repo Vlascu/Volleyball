@@ -25,8 +25,8 @@ namespace Assets.Scripts
         [SerializeField] private Player player1;
         [SerializeField] private Player player2;
 
-        [SerializeField] private AudioSource ballHitSound;
-        [SerializeField] private AudioSource cheeringSound;
+        [SerializeField] private AudioClip ballHitSound;
+        [SerializeField] private AudioClip cheeringSound;
 
         private Vector3 initialPlayer1Pos;
         private Vector3 initialPlayer2Pos;
@@ -45,8 +45,11 @@ namespace Assets.Scripts
         private const int POINTS_DIFF = 2;
         private const int MAX_SETS_WON = 1;
 
+        private AudioSource audioSource;
+
         private void Start()
         {
+            audioSource = GetComponent<AudioSource>();
             ballRb = ball.GetComponent<Rigidbody>();
 
             if (ball != null)
@@ -91,7 +94,7 @@ namespace Assets.Scripts
 
         public void OnSideTouched(string side)
         {
-            cheeringSound.Play();
+            audioSource.PlayOneShot(cheeringSound);
 
             if (side == "SideA")
             {
@@ -104,9 +107,9 @@ namespace Assets.Scripts
 
             UpdateScoreUI();
 
-            CheckAndUpdateScore(ref playerTwoScore, ref playerOneScore, ref playerTwoSets, ref playerOneSets, "SecondPlayer");
+            CheckAndUpdateScore(ref playerTwoScore, ref playerOneScore, ref playerTwoSets, ref playerOneSets, "Player 2");
 
-            CheckAndUpdateScore(ref playerOneScore, ref playerTwoScore, ref playerOneSets, ref playerTwoSets, "Player");
+            CheckAndUpdateScore(ref playerOneScore, ref playerTwoScore, ref playerOneSets, ref playerTwoSets, "Player 1");
 
             UpdateScoreUI();
         }
@@ -173,7 +176,7 @@ namespace Assets.Scripts
 
         public void OnServe(Vector3 direction, ForceMode mode)
         {
-            ballHitSound.Play();
+            audioSource.PlayOneShot(ballHitSound);
 
             ballRb.AddForce(direction, mode);
         }
