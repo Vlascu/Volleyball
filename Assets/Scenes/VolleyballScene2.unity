@@ -1501,9 +1501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Player One Score:
-
-'
+  m_text: 'Player One Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2160,8 +2158,8 @@ MonoBehaviour:
   secondCamera: {fileID: 1390689516}
   player1: {fileID: 526088238}
   player2: {fileID: 865952877}
-  ballHitSound: {fileID: 8300000, guid: 74ceb26a370c8b140be71b78121540a4, type: 3}
-  cheeringSound: {fileID: 8300000, guid: 1a4b6fcd24941474dbefabbcc580796f, type: 3}
+  ballHitSound: {fileID: 1252855908}
+  cheeringSound: {fileID: 1252855907}
 --- !u!82 &1252855907
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2172,12 +2170,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
   m_audioClip: {fileID: 8300000, guid: 1a4b6fcd24941474dbefabbcc580796f, type: 3}
   m_Resource: {fileID: 8300000, guid: 1a4b6fcd24941474dbefabbcc580796f, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2275,7 +2270,6 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 74ceb26a370c8b140be71b78121540a4, type: 3}
   m_Resource: {fileID: 8300000, guid: 74ceb26a370c8b140be71b78121540a4, type: 3}
   m_PlayOnAwake: 0
->>>>>>> Stashed changes
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
