@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "VolleyballGame.sln"
+    "dotnet.defaultSolution": "Volleyball.sln"
 }
