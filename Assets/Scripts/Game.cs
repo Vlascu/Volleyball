@@ -41,9 +41,9 @@ namespace Assets.Scripts
 
         private int setsCounter = 1;
 
-        private const int MAX_POINTS = 10;
+        private const int MAX_POINTS = 5;
         private const int POINTS_DIFF = 2;
-        private const int MAX_SETS_WON = 1;
+        private const int MAX_SETS_WON = 2;
 
         private void Start()
         {
